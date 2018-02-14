@@ -1,4 +1,4 @@
-set(LIBNAME "WinTestRunner")
+set(LIBNAME "PocoWinTestRunner")
 
 # Sources
 file(GLOB SRCS_G "src/*.cpp")

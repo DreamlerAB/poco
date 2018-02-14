@@ -1,5 +1,5 @@
-set(LIBNAME "Net")
-set(POCO_LIBNAME "Poco${LIBNAME}")
+set(LIBNAME "PocoNet")
+set(POCO_LIBNAME "${LIBNAME}")
 
 # Sources
 file(GLOB SRCS_G "src/*.cpp")
@@ -19,7 +19,7 @@ if(WIN32)
 endif(WIN32)
 
 add_library( "${LIBNAME}" ${LIB_MODE} ${SRCS} )
-add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
+#add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
 set_target_properties( "${LIBNAME}"
     PROPERTIES
     VERSION ${SHARED_LIBRARY_VERSION} SOVERSION ${SHARED_LIBRARY_VERSION}
@@ -27,7 +27,7 @@ set_target_properties( "${LIBNAME}"
     DEFINE_SYMBOL Net_EXPORTS
     )
 
-target_link_libraries( "${LIBNAME}" Foundation ${SYSLIBS})
+target_link_libraries( "${LIBNAME}" PocoFoundation ${SYSLIBS})
 target_include_directories( "${LIBNAME}"
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

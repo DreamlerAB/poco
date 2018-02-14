@@ -1,5 +1,5 @@
-set(LIBNAME "Foundation")
-set(POCO_LIBNAME "Poco${LIBNAME}")
+set(LIBNAME "PocoFoundation")
+set(POCO_LIBNAME "${LIBNAME}")
 
 # Sources
 file(GLOB SRCS_G "src/*.cpp")
@@ -156,7 +156,7 @@ if(UNIX AND NOT APPLE)
 endif(UNIX AND NOT APPLE)
 
 add_library( "${LIBNAME}" ${LIB_MODE} ${SRCS})
-add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
+#add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
 set_target_properties( "${LIBNAME}"
 	PROPERTIES
 	VERSION ${SHARED_LIBRARY_VERSION} SOVERSION ${SHARED_LIBRARY_VERSION}

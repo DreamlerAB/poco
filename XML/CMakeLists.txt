@@ -1,5 +1,5 @@
-set(LIBNAME "XML")
-set(POCO_LIBNAME "Poco${LIBNAME}")
+set(LIBNAME "PocoXML")
+set(POCO_LIBNAME "${LIBNAME}")
 
 # Expat CPP sources to be excluded from globbed SRCS_G
 # They are added back on the list if POCO_UNBUNDLED is not set
@@ -38,7 +38,7 @@ add_definitions(-DXML_NS -DXML_DTD -DHAVE_EXPAT_CONFIG_H)
 endif()
 
 add_library( "${LIBNAME}" ${LIB_MODE} ${SRCS} )
-add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
+#add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
 set_target_properties( "${LIBNAME}"
     PROPERTIES
     VERSION ${SHARED_LIBRARY_VERSION} SOVERSION ${SHARED_LIBRARY_VERSION}
@@ -46,7 +46,7 @@ set_target_properties( "${LIBNAME}"
     DEFINE_SYMBOL XML_EXPORTS
     )
 
-target_link_libraries( "${LIBNAME}" ${SYSLIBS} Foundation)
+target_link_libraries( "${LIBNAME}" ${SYSLIBS} PocoFoundation)
 target_include_directories( "${LIBNAME}"
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

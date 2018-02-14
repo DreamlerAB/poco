@@ -210,33 +210,33 @@ endmacro()
 macro(POCO_GENERATE_PACKAGE target_name)
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-  "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}${target_name}ConfigVersion.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/${SUBPROJECT_NAME}/${target_name}ConfigVersion.cmake"
   VERSION ${PROJECT_VERSION}
   COMPATIBILITY AnyNewerVersion
 )
 export(EXPORT "${target_name}Targets"
-  FILE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}${target_name}Targets.cmake"
-  NAMESPACE "${PROJECT_NAME}::"
+  FILE "${CMAKE_CURRENT_SOURCE_DIR}/${SUBPROJECT_NAME}/${target_name}Targets.cmake"
+  NAMESPACE "${SUBPROJECT_NAME}::"
 )
-configure_file("cmake/Poco${target_name}Config.cmake"
-  "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}${target_name}Config.cmake"
+configure_file("cmake/${target_name}Config.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/${SUBPROJECT_NAME}/${target_name}Config.cmake"
   @ONLY
 )
 
-set(ConfigPackageLocation "lib/cmake/${PROJECT_NAME}")
+set(ConfigPackageLocation "lib/cmake/${SUBPROJECT_NAME}")
 
 install(
     EXPORT "${target_name}Targets"
-    FILE "${PROJECT_NAME}${target_name}Targets.cmake"
-    NAMESPACE "${PROJECT_NAME}::"
-    DESTINATION "lib/cmake/${PROJECT_NAME}"
+    FILE "${target_name}Targets.cmake"
+    NAMESPACE "${SUBPROJECT_NAME}::"
+    DESTINATION "lib/cmake/${SUBPROJECT_NAME}"
     )
 
 install(
     FILES
-        "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}${target_name}Config.cmake"
-        "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}${target_name}ConfigVersion.cmake"
-    DESTINATION "lib/cmake/${PROJECT_NAME}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/${SUBPROJECT_NAME}/${target_name}Config.cmake"
+        "${CMAKE_CURRENT_SOURCE_DIR}/${SUBPROJECT_NAME}/${target_name}ConfigVersion.cmake"
+    DESTINATION "lib/cmake/${SUBPROJECT_NAME}"
     COMPONENT Devel
     )
 
@@ -322,4 +322,12 @@ macro(POCO_INSTALL_PDB target_name)
             OPTIONAL
             )
     endif()
+endmacro()
+
+
+# added by Emil 2018-02-14
+macro(add_subdirectory_emil subdirectory_name)
+	list(APPEND Poco_ALL_INCLUDE_DIRS "${subdirectory_name}")
+	set(Poco_ALL_INCLUDE_DIRS ${Poco_ALL_INCLUDE_DIRS} PARENT_SCOPE)
+	add_subdirectory(${subdirectory_name})
 endmacro()

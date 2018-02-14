@@ -1,5 +1,5 @@
-set(LIBNAME "NetSSLWin")
-set(POCO_LIBNAME "Poco${LIBNAME}")
+set(LIBNAME "PocoNetSSLWin")
+set(POCO_LIBNAME "${LIBNAME}")
 
 # Sources
 file(GLOB SRCS_G "src/*.cpp")
@@ -10,7 +10,7 @@ file(GLOB_RECURSE HDRS_G "include/*.h" )
 POCO_HEADERS_AUTO( SRCS ${HDRS_G})
 
 add_library( "${LIBNAME}" ${LIB_MODE} ${SRCS} )
-add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
+#add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
 set_target_properties( "${LIBNAME}"
     PROPERTIES
     VERSION ${SHARED_LIBRARY_VERSION} SOVERSION ${SHARED_LIBRARY_VERSION}
@@ -18,7 +18,7 @@ set_target_properties( "${LIBNAME}"
     DEFINE_SYMBOL NetSSL_Win_EXPORTS
     )
 
-target_link_libraries( "${LIBNAME}" Net Util Foundation Crypt32.lib )
+target_link_libraries( "${LIBNAME}" PocoNet PocoUtil PocoFoundation Crypt32.lib )
 target_include_directories( "${LIBNAME}"
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

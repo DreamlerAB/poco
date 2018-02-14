@@ -10,7 +10,7 @@ set_target_properties( "${POCO_EXENAME}"
     OUTPUT_NAME cpspc
     )
 
-target_link_libraries( "${POCO_EXENAME}" ${CMAKE_THREAD_LIBS_INIT} Net Util XML JSON Foundation)
+target_link_libraries( "${POCO_EXENAME}" ${CMAKE_THREAD_LIBS_INIT} PocoNet PocoUtil PocoXML PocoJSON PocoFoundation)
 
 install(
     TARGETS "${POCO_EXENAME}" EXPORT "${POCO_EXENAME}Targets"

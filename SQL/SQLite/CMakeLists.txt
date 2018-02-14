@@ -1,5 +1,5 @@
-set(LIBNAME  "SQLSQLite")
-set(POCO_LIBNAME "Poco${LIBNAME}")
+set(LIBNAME  "PocoSQLSQLite")
+set(POCO_LIBNAME "${LIBNAME}")
 
 # Sources
 file(GLOB SRCS_G "src/*.cpp")
@@ -33,7 +33,7 @@ endif(WINCE)
 add_definitions(-DSQLITE_THREADSAFE=1 -DSQLITE_DISABLE_LFS -DSQLITE_OMIT_UTF16 -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_OMIT_COMPLETE -DSQLITE_OMIT_TCL_VARIABLE -DSQLITE_OMIT_DEPRECATED)
 
 add_library( "${LIBNAME}" ${LIB_MODE} ${SQLITE_SRCS} )
-add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
+#add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
 set_target_properties( "${LIBNAME}"
     PROPERTIES
     VERSION ${SHARED_LIBRARY_VERSION} SOVERSION ${SHARED_LIBRARY_VERSION}
@@ -41,7 +41,7 @@ set_target_properties( "${LIBNAME}"
     DEFINE_SYMBOL SQLite_EXPORTS
     )
 
-target_link_libraries( "${LIBNAME}" Foundation SQL ${DATASQLITELIBS} )
+target_link_libraries( "${LIBNAME}" PocoFoundation PocoSQL ${DATASQLITELIBS} )
 target_include_directories( "${LIBNAME}"
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

@@ -1,5 +1,5 @@
-set(LIBNAME "NetSSL")
-set(POCO_LIBNAME "Poco${LIBNAME}")
+set(LIBNAME "PocoNetSSL")
+set(POCO_LIBNAME "${LIBNAME}")
 
 # Sources
 file(GLOB SRCS_G "src/*.cpp")
@@ -14,7 +14,7 @@ POCO_HEADERS_AUTO( SRCS ${HDRS_G})
 include(OpenSSLInternalLib)
 
 add_library( "${LIBNAME}" ${LIB_MODE} ${SRCS} )
-add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
+#add_library( "${POCO_LIBNAME}" ALIAS "${LIBNAME}")
 set_target_properties( "${LIBNAME}"
     PROPERTIES
     VERSION ${SHARED_LIBRARY_VERSION} SOVERSION ${SHARED_LIBRARY_VERSION}
@@ -24,7 +24,7 @@ set_target_properties( "${LIBNAME}"
 
 include(OpenSSLInternalLibCopy)
 
-target_link_libraries( "${LIBNAME}" Crypto Net Util Foundation ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY} )
+target_link_libraries( "${LIBNAME}" PocoCrypto PocoNet PocoUtil PocoFoundation ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY} )
 target_include_directories( "${LIBNAME}"
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
