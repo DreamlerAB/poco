@@ -326,8 +326,9 @@ endmacro()
 
 
 # added by Emil 2018-02-14
-macro(add_subdirectory_emil subdirectory_name)
-	list(APPEND Poco_ALL_INCLUDE_DIRS "${subdirectory_name}")
-	set(Poco_ALL_INCLUDE_DIRS ${Poco_ALL_INCLUDE_DIRS} PARENT_SCOPE)
+macro(add_subdirectory_and_include_path subdirectory_name)
+	list(APPEND INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/${subdirectory_name}/include")
+	set(INCLUDE ${INCLUDE} PARENT_SCOPE) # will be used by our caller, in ../../CMakeLists.txt - note that this ONLY sets the var in PARENT scope, not in this scope!
+
 	add_subdirectory(${subdirectory_name})
 endmacro()
