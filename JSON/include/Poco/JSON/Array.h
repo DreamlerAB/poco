@@ -212,7 +212,10 @@ private:
 
 inline void Array::setEscapeUnicode(bool escape)
 {
-	_escapeUnicode = true;
+	//_escapeUnicode = true;
+	// hack by Emil 2018-11-07
+	// https://github.com/pocoproject/poco/issues/2295
+	_escapeUnicode = escape;
 }
 
 
