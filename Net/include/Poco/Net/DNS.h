@@ -44,14 +44,14 @@ public:
 		DNS_HINT_AI_NUMERICHOST = AI_NUMERICHOST, /// Nodename must be a numeric address string
 		DNS_HINT_AI_NUMERICSERV = AI_NUMERICSERV, /// Servicename must be a numeric port number
 		DNS_HINT_AI_ALL         = AI_ALL,         /// Query both IP6 and IP4 with AI_V4MAPPED
-		DNS_HINT_AI_ADDRCONFIG  = AI_ADDRCONFIG,  /// Resolution only if global address configured
+		DNS_HINT_AI_ADDRCONFIG  = AI_ADDRCONFIG,  /// Resolution only if global address configured. The IPv6 and IPv4 loopback address is not considered a valid global address. This option is supported on Windows Vista and later.
 		DNS_HINT_AI_V4MAPPED    = AI_V4MAPPED     /// On v6 failure, query v4 and convert to V4MAPPED format	
 #endif
 	};
 
 	static HostEntry hostByName(const std::string& hostname, unsigned hintFlags =
 #ifdef POCO_HAVE_ADDRINFO
-		DNS_HINT_AI_CANONNAME | DNS_HINT_AI_ADDRCONFIG
+		DNS_HINT_AI_CANONNAME // | DNS_HINT_AI_ADDRCONFIG outcommented by Emil 2019-03-31 because with it, if we try to connect to localhost while offline, we get the error WSANO_DATA
 #else
 		DNS_HINT_NONE
 #endif		
@@ -72,7 +72,7 @@ public:
 		
 	static HostEntry hostByAddress(const IPAddress& address, unsigned hintFlags =
 #ifdef POCO_HAVE_ADDRINFO
-		DNS_HINT_AI_CANONNAME | DNS_HINT_AI_ADDRCONFIG
+		DNS_HINT_AI_CANONNAME // | DNS_HINT_AI_ADDRCONFIG outcommented by Emil 2019-03-31 because with it, if we try to connect to localhost while offline, we get the error WSANO_DATA
 #else
 		DNS_HINT_NONE
 #endif		
