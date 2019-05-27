@@ -314,6 +314,7 @@ int SecureSocketImpl::sendRawBytes(const void* buffer, int length, int flags)
 
 int SecureSocketImpl::receiveRawBytes(void* buffer, int length, int flags)
 {
+	printf("SecureSocketImpl::receiveRawBytes()\n");
 	return _pSocket->receiveBytes(buffer, length, flags);
 }
 
