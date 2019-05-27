@@ -64,6 +64,7 @@ void SecureStreamSocketImpl::connect(const SocketAddress& address)
 
 void SecureStreamSocketImpl::connect(const SocketAddress& address, const Poco::Timespan& timeout)
 {
+	printf("SecureStreamSocketImpl::connect()\n");
 	_impl.connect(address, timeout, !_lazyHandshake);
 	reset(_impl.sockfd());
 }

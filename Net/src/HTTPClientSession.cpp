@@ -208,6 +208,7 @@ void HTTPClientSession::setKeepAliveTimeout(const Poco::Timespan& timeout)
 
 std::ostream& HTTPClientSession::sendRequest(HTTPRequest& request)
 {
+	printf("HTTPClientSession::sendRequest()\n");
 	clearException();
 	_pResponseStream = 0;
 	_responseReceived = false;

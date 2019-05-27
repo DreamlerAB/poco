@@ -189,6 +189,7 @@ void SecureSocketImpl::connect(const SocketAddress& address, bool performHandsha
 
 void SecureSocketImpl::connect(const SocketAddress& address, const Poco::Timespan& timeout, bool performHandshake)
 {
+	printf("SecureSocketImpl::connect()\n");
 	_state = ST_ERROR;
 	_pSocket->connect(address, timeout);
 	connectSSL(performHandshake);
@@ -696,6 +697,7 @@ PCCERT_CONTEXT SecureSocketImpl::loadCertificate(bool mustFindCertificate)
 
 void SecureSocketImpl::connectSSL(bool completeHandshake)
 {
+	printf("SecureSocketImpl::connectSSL()\n");
 	poco_assert_dbg(_pPeerCertificate == 0);
 
 	if (_peerHostName.empty())
@@ -766,6 +768,7 @@ void SecureSocketImpl::initClientContext()
 
 void SecureSocketImpl::performClientHandshake()
 {
+	printf("SecureSocketImpl::performClientHandshake()\n");
 	performInitialClientHandshake();
 	performClientHandshakeLoop();
 	clientConnectVerify();
@@ -847,6 +850,7 @@ void SecureSocketImpl::sendInitialTokenOutBuffer()
 
 SECURITY_STATUS SecureSocketImpl::performClientHandshakeLoop()
 {
+	printf("SecureSocketImpl::performClientHandshakeLoop()\n");
 	_recvBufferOffset = 0;
 	_securityStatus = SEC_E_INCOMPLETE_MESSAGE;
 
@@ -953,11 +957,16 @@ void SecureSocketImpl::performClientHandshakeLoopInit()
 
 void SecureSocketImpl::performClientHandshakeLoopReceive()
 {
+	printf("SecureSocketImpl::performClientHandshakeLoopReceive()\n");
+	printf("_recvBufferOffset %d\n", _recvBufferOffset);
 	poco_assert_dbg (_needData);
 	poco_assert (IO_BUFFER_SIZE > _recvBufferOffset);
 
 	int n = receiveRawBytes(_recvBuffer.begin() + _recvBufferOffset, IO_BUFFER_SIZE - _recvBufferOffset);
-	if (n <= 0) throw SSLException("Error during handshake: failed to read data");
+	if (n <= 0)
+	{
+		throw SSLException("Error during handshake: failed to read data");
+	}
 
 	_recvBufferOffset += n;
 }
@@ -965,6 +974,7 @@ void SecureSocketImpl::performClientHandshakeLoopReceive()
 
 void SecureSocketImpl::performClientHandshakeLoopCondReceive()
 {
+	printf("SecureSocketImpl::performClientHandshakeLoopCondReceive()\n");
 	poco_assert_dbg (_securityStatus == SEC_E_INCOMPLETE_MESSAGE || SEC_I_CONTINUE_NEEDED);
 	
 	performClientHandshakeLoopInit();

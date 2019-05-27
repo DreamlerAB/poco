@@ -143,6 +143,7 @@ void HTTPSClientSession::proxyAuthenticate(HTTPRequest& request)
 
 void HTTPSClientSession::connect(const SocketAddress& address)
 {
+	printf("HTTPSClientSession::connect()\n");
 	if (getProxyHost().empty() || bypassProxy())
 	{
 		SecureStreamSocket sss(socket());

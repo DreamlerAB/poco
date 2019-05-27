@@ -192,6 +192,7 @@ bool HTTPSession::connected() const
 
 void HTTPSession::connect(const SocketAddress& address)
 {
+	printf("HTTPSession::connect()\n");
 	_socket.connect(address, _connectionTimeout);
 	_socket.setReceiveTimeout(_receiveTimeout);
 	_socket.setSendTimeout(_sendTimeout);

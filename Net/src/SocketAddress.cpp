@@ -261,6 +261,7 @@ void SocketAddress::init(const IPAddress& hostAddress, Poco::UInt16 portNumber)
 
 void SocketAddress::init(const std::string& hostAddress, Poco::UInt16 portNumber)
 {
+	printf("SocketAddress::init()\n");
 	IPAddress ip;
 	if (IPAddress::tryParse(hostAddress, ip))
 	{
